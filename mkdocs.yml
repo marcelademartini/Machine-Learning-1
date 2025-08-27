@@ -1,8 +1,8 @@
 site_name: Template de Entrega
 site_author: Marcela de Martini
-site_url: https://hsandmann.github.io/documentation.template
-repo_url: https://github.com/hsandmann/documentation.template
-repo_name: github/documentation.template
+site_url: https://marcelademartini.github.io/documentation.template
+repo_url: https://github.com/marcelademartini/documentation.template
+repo_name: https://github.com/Machine-Learning-1
 
 theme:
   name: material
