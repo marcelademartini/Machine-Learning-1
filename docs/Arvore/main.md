@@ -64,11 +64,13 @@ Em resumo, a árvore de decisão nos permite não apenas classificar novos pacie
 ```python exec="1" html="true"
 --8<-- "docs/Arvore/Avaliacaodomodelo.py"
 ```
+
 === "dataset"
 
 ```python exec="on" html="0"
 --8<-- "docs/Arvore/Avaliacaodomodelo.py"
 ```
+
 === "code"
 
 ```python exec="0"

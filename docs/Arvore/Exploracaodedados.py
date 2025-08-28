@@ -1,33 +1,24 @@
-# -- coding: utf-8 --
-import matplotlib.pyplot as plt  # mantido, caso você use depois
 import pandas as pd
-from io import StringIO
-from sklearn import tree          # mantido, caso você use depois
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-URL = "https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv"
+def explorar_dados(https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv="Testing.csv"):
+    df = pd.read_csv(https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv)
 
-# 1) Carregamento
-df = pd.read_csv(URL)
+    print("\n Informações do Dataset:")
+    print(df.info())
+    print("\n Estatísticas Descritivas:")
+    print(df.describe())
 
-# 2) Pré-visualização básica
-print(f"Linhas, colunas: {df.shape}")
-print("\nTipos de dados:")
-print(df.dtypes)
+    # Visualizações
+    plt.figure(figsize=(10, 6))
+    sns.histplot(df["Glucose"], bins=20, kde=True)
+    plt.title("Distribuição da Glicose")
+    plt.show()
 
-# 3) Limpeza mínima (não altera a lógica do seu snippet original)
-if "id" in df.columns:
-    df = df.drop(columns=["id"])
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(y=df["BMI"])
+    plt.title("Boxplot do IMC")
+    plt.show()
 
-# 4) Info útil sobre a coluna-alvo, se existir
-if "diagnosis" in df.columns:
-    print("\nContagem de valores em 'diagnosis':")
-    print(df["diagnosis"].value_counts(dropna=False))
-else:
-    print("\nA coluna 'diagnosis' não foi encontrada na base.")
-
-# 5) Exibição em Markdown (apenas amostra para não lotar o terminal)
-print("\nAmostra (10 primeiras linhas):")
-print(df.head(10).to_markdown(index=False))
+    return df

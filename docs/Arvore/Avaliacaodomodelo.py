@@ -1,31 +1,19 @@
-# -- coding: utf-8 --
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-from io import StringIO
-from sklearn import tree
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-from sklearn.impute import SimpleImputer
-from tabulate import tabulate
-import warnings
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-warnings.filterwarnings("ignore")
+def avaliar_modelo(modelo, X_test, y_test):
+    y_pred = modelo.predict(X_test)
 
-# ============================================================
-# 1) Carregamento da base
-# ============================================================
-URL = "https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv"
-df = pd.read_csv(URL)
+    print("\n🔍 Avaliação do Modelo:")
+    print("Acurácia:", accuracy_score(y_test, y_pred))
+    print("\nRelatório de Classificação:")
+    print(classification_report(y_test, y_pred))
 
-# ============================================================
-# 2) Pré-processamento
-#    - remove 'id'
-#    - codifica 'diagnosis' (B/M) -> 0/1
-# ============================================================
-if "id" in df.columns:
-    df = df.drop(columns=["id"])
-
-if "diagnosis" not in df.columns:
-    raise
+    # Matriz de Confusão
+    cm = confusion_matrix(y_test, y_pred)
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+    plt.title("Matriz de Confusão")
+    plt.xlabel("Previsto")
+    plt.ylabel("Real")
+    plt.show()
