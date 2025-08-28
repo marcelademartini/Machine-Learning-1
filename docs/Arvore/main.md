@@ -8,7 +8,8 @@ O principal desafio contra sua detecção é como classificar os tumores em mali
 
 ```python
 --8<-- "docs/EXERCICIOAD/Exploracaodedados.py"
-``` 
+```
+
 Pré-Processamento
 !!! example "Explicação dos processos realizados no pré-processamento"
 
@@ -18,12 +19,14 @@ Na etapa de pré-processamento, os dados do dataset de cancer de mama passaram p
 
 ```python
 --8<-- "docs/EXERCICIOAD/Preprocessamento.py"
-``` 
+```
+
 === "Resultado"
 
 ```python exec="on" html="0"
 --8<-- "docs/EXERCICIOAD/Treinamentodomodelo.py"
 ```
+
 Divisão de Dados
 !!! example "Explicação da etapa de divisão de dados"
 
@@ -33,7 +36,8 @@ Na etapa de divisão de dados do dataset, eles foram separados em uma proporçã
 
 ```python
 --8<-- "docs/EXERCICIOAD/Divisaodedados.py"
-``` 
+```
+
 Treinamento do modelo
 !!! example "ETAPA I:" Na etapa I o modelo foi testado e treinado usando uma proporção de 20% teste 80% treino, com essas porcentagens o modelo apresentou 93% de acuracia.
 
@@ -43,7 +47,8 @@ Treinamento do modelo
 
 ```python
 --8<-- "docs/EXERCICIOAD/Treinamentodomodelo.py"
-``` 
+```
+
 Avaliação do Modelo Final
 Após realizar o treinamento do modelo em diferentes divisões de treino e teste, foi feita a avaliação final utilizando o algoritmo de árvore de decisão.
 
@@ -60,11 +65,13 @@ Ainda assim, os resultados mostraram uma acurácia razoável, o que significa qu
 ```python exec="1" html="true"
 --8<-- "docs/EXERCICIOAD/Avaliacaodomodelo.py"
 ```
+
 === "code"
 
 ```python exec="0"
 --8<-- "docs/EXERCICIOAD/Avaliacaodomodelo.py"
 ```
+
 Relatório Final
 !!! example "Resumo do Projeto"
 
