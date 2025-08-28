@@ -1,94 +1,37 @@
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
+import pandas as pd
+from io import StringIO
+from sklearn import tree
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier, plot_tree
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score
+from tabulate import tabulate  
 
-# =============================
-# 1. Exploração dos Dados
-# =============================
-df = pd.read_csv("https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv")
 
-print("\n=== Informações Gerais ===")
-print(df.info())
-print("\n=== Primeiras Linhas ===")
-print(df.head())
-print("\n=== Estatísticas Descritivas ===")
-print(df.describe())
+#carregamento da base
+df = pd.read_csv('https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv')
 
-# Visualizações
-plt.figure(figsize=(10, 6))
-sns.histplot(df["Glucose"], kde=True)
-plt.title("Distribuição da Glicose")
-plt.show()
+#pré processamento
+#remoção da coluna id pois é irrelevante para o modelo
+df = df.drop(columns=['id'])
 
-plt.figure(figsize=(10, 6))
-sns.heatmap(df.corr(), annot=True, cmap="coolwarm")
-plt.title("Matriz de Correlação")
-plt.show()
+#conversão de letra para número
+label_encoder = LabelEncoder()  
+df['diagnosis'] = label_encoder.fit_transform(df['diagnosis'])
 
-# =============================
-# 2. Pré-processamento
-# =============================
-cols_with_invalid_zeros = ["Glucose", "BloodPressure", "SkinThickness", "Insulin", "BMI"]
-df[cols_with_invalid_zeros] = df[cols_with_invalid_zeros].replace(0, pd.NA)
+#features escolhidas, todas menos diagnosis e id
+x = df.drop(columns=['diagnosis'])
+y = df['diagnosis']
 
-# Imputação com a mediana
-imputer = SimpleImputer(strategy="median")
-df[cols_with_invalid_zeros] = imputer.fit_transform(df[cols_with_invalid_zeros])
+#imputação com mediana de valores ausentes nas features concavity_worts e concavity points_worst
+df['concavity_mean'].fillna(df['concavity_mean'].median(), inplace=True)
+df['concave points_mean'].fillna(df['concave points_mean'].median(), inplace=True)
 
-# Normalização
-scaler = StandardScaler()
-X = df.drop("Outcome", axis=1)
-y = df["Outcome"]
-X_scaled = scaler.fit_transform(X)
+#divisão de treinamento e teste 
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42, stratify=y)
 
-# =============================
-# 3. Divisão dos Dados
-# =============================
-X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, y, test_size=0.2, random_state=42, stratify=y
-)
+# Criar e treinar o modelo de árvore de decisão
+classifier = tree.DecisionTreeClassifier()
+classifier.fit(x_train, y_train)
 
-# =============================
-# 4. Treinamento do Modelo
-# =============================
-model = DecisionTreeClassifier(random_state=42, max_depth=4)
-model.fit(X_train, y_train)
-
-# Visualizar a árvore
-plt.figure(figsize=(20, 10))
-plot_tree(model, filled=True, feature_names=X.columns, class_names=["0", "1"])
-plt.show()
-
-# =============================
-# 5. Avaliação do Modelo
-# =============================
-y_pred = model.predict(X_test)
-
-print("\n=== Acurácia ===")
-print(accuracy_score(y_test, y_pred))
-
-print("\n=== Relatório de Classificação ===")
-print(classification_report(y_test, y_pred))
-
-print("\n=== Matriz de Confusão ===")
-print(confusion_matrix(y_test, y_pred))
-
-sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt="d", cmap="Blues")
-plt.title("Matriz de Confusão")
-plt.show()
-
-# =============================
-# 6. Relatório Final
-# =============================
-print("\n=== Relatório Final ===")
-print("O modelo Decision Tree foi treinado com profundidade máxima = 4.")
-print("Resultados mostram acurácia próxima de", round(accuracy_score(y_test, y_pred), 2))
-print("Possíveis melhorias incluem:")
-print("- Testar outros algoritmos (Random Forest, XGBoost).")
-print("- Ajustar hiperparâmetros (profundidade, critério, min_samples_split).")
-print("- Realizar cross-validation para validar melhor a performance.")
+print(df.to_markdown(index=False))

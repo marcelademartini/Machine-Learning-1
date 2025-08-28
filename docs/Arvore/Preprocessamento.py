@@ -1,21 +1,39 @@
+import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
+from io import StringIO
+from sklearn import tree
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score
 
-def preprocessar_dados(df):
-    # Substituir valores inválidos (0) por NaN
-    cols_invalidas = ["Glucose", "BloodPressure", "SkinThickness", "Insulin", "BMI"]
-    for col in cols_invalidas:
-        df[col] = df[col].replace(0, np.nan)
+# ==============================
+# Carregamento da base
+# ==============================
+df = pd.read_csv("https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv")
 
-    # Imputação com mediana
-    imputer = SimpleImputer(strategy="median")
-    df[cols_invalidas] = imputer.fit_transform(df[cols_invalidas])
+# ==============================
+# Pré-processamento
+# ==============================
 
-    # Normalização (padrão z-score)
-    scaler = StandardScaler()
-    colunas_numericas = df.drop("Outcome", axis=1).columns
-    df[colunas_numericas] = scaler.fit_transform(df[colunas_numericas])
+# 1. Remover colunas irrelevantes (se tiver, como "id")
+if "id" in df.columns:
+    df = df.drop(columns=["id"])
 
-    return df
+# 2. Codificação de variáveis categóricas (transforma string em número)
+label_encoder = LabelEncoder()
+for col in df.select_dtypes(include=["object"]).columns:
+    df[col] = label_encoder.fit_transform(df[col].astype(str))
+
+# 3. Features (x) e alvo (y) → assumindo que a última coluna seja o alvo
+x = df.iloc[:, :-1]
+y = df.iloc[:, -1]
+
+# 4. Imputação automática (valores ausentes substituídos pela mediana)
+for col in df.columns:
+    if df[col].isnull().sum() > 0:
+        df[col].fillna(df[col].median(), inplace=True)
+
+# ==============================
+# Exibir DataFrame
+# ==============================
+print(df.to_markdown(index=False))
