@@ -7,7 +7,7 @@ O principal desafio contra sua detecção é como classificar os tumores em mali
 === "Code"
 
 ```python
---8<-- "docs/EXERCICIOAD/Exploracaodedados.py"
+--8<-- "docs/Arvore/Exploracaodedados.py"
 ```
 
 Pré-Processamento
@@ -18,13 +18,13 @@ Na etapa de pré-processamento, os dados do dataset de cancer de mama passaram p
 === "Code"
 
 ```python
---8<-- "docs/EXERCICIOAD/Preprocessamento.py"
+--8<-- "docs/Arvore/Preprocessamento.py"
 ```
 
 === "Resultado"
 
 ```python exec="on" html="0"
---8<-- "docs/EXERCICIOAD/Treinamentodomodelo.py"
+--8<-- "docs/Arvore/Treinamentodomodelo.py"
 ```
 
 Divisão de Dados
@@ -35,7 +35,7 @@ Na etapa de divisão de dados do dataset, eles foram separados em uma proporçã
 === "Code"
 
 ```python
---8<-- "docs/EXERCICIOAD/Divisaodedados.py"
+--8<-- "docs/Arvore/Divisaodedados.py"
 ```
 
 Treinamento do modelo
@@ -46,7 +46,7 @@ Treinamento do modelo
 === "Code"
 
 ```python
---8<-- "docs/EXERCICIOAD/Treinamentodomodelo.py"
+--8<-- "docs/Arvore/Treinamentodomodelo.py"
 ```
 
 Avaliação do Modelo Final
@@ -63,13 +63,13 @@ Ainda assim, os resultados mostraram uma acurácia razoável, o que significa qu
 === "decision tree"
 
 ```python exec="1" html="true"
---8<-- "docs/EXERCICIOAD/Avaliacaodomodelo.py"
+--8<-- "docs/Arvore/Avaliacaodomodelo.py"
 ```
 
 === "code"
 
 ```python exec="0"
---8<-- "docs/EXERCICIOAD/Avaliacaodomodelo.py"
+--8<-- "docs/Arvore/Avaliacaodomodelo.py"
 ```
 
 Relatório Final
