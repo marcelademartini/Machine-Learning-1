@@ -42,5 +42,35 @@ A árvore de decisão resultante é uma representação gráfica do processo de 
 Em resumo, a árvore de decisão nos permite não apenas classificar novos pacientes, mas também interpretar facilmente quais fatores clínicos têm maior peso no diagnóstico de diabetes, tornando o modelo útil tanto para previsão quanto para análise exploratória dos dados.
 
 ``` python exec="on" html="0"
---8<-- "./docs/Arvore/Arvore.py"
+--8<-- "./docs/Arvore/Exploracaodedados.py"
+```
+
+```python
+--8<-- "docs/Arvore/Preprocessamento.py"
+``` 
+
+```python
+--8<-- "docs/Arvore/Divisaodedados.py"
+``` 
+
+```python
+--8<-- "docs/Arvore/Treinamentodomodelo.py"
+``` 
+
+```python exec="on" html="0"
+--8<-- "docs/Arvore/Treinamentodomodelo.py"
+```
+
+```python exec="1" html="true"
+--8<-- "docs/Arvore/Avaliacaodomodelo.py"
+```
+=== "dataset"
+
+```python exec="on" html="0"
+--8<-- "docs/Arvore/Avaliacaodomodelo.py"
+```
+=== "code"
+
+```python exec="0"
+--8<-- "docs/Arvore/Avaliacaodomodelo.py"
 ```
