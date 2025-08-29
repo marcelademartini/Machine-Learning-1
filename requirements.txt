@@ -16,3 +16,4 @@ pandas
 yfinance
 scikit-learn
 kagglehub
+tabulate
