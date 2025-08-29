@@ -31,20 +31,8 @@ Após essa correção, foi aplicada a normalização com StandardScaler, garanti
 
 
 
-=== "Code"
 
-    ```python
-    --8<-- "docs/Arvore/Divisaodedados.py"
-    ```
-
-=== "Code"
-
-    ```python
-    --8<-- "docs/Arvore/Treinamentodomodelo.py"
-    ```
-
-
-!!! example "Breast Cancer Dataset"
+!!! example "Diabetes"
 
 === "decision tree"
 

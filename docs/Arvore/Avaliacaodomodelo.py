@@ -7,14 +7,14 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 from tabulate import tabulate  
 
-# =============================
+
 # 1. Carregamento da base
-# =============================
+
 df = pd.read_csv("https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv")
 
-# =============================
+
 # 2. Pré-processamento
-# =============================
+
 
 # Converte colunas categóricas em números se houver
 for col in df.select_dtypes(include=["object"]).columns:
@@ -33,22 +33,22 @@ for col in cols_with_invalid_zeros:
 X = df.drop(columns=["Outcome"])
 y = df["Outcome"]
 
-# =============================
+
 # 3. Divisão treino e teste
-# =============================
+
 x_train, x_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42, stratify=y
 )
 
-# =============================
+
 # 4. Modelo de Árvore
-# =============================
+
 classifier = tree.DecisionTreeClassifier(random_state=42, max_depth=4)
 classifier.fit(x_train, y_train)
 
-# =============================
+
 # 5. Avaliação
-# =============================
+
 # Criar e treinar o modelo de árvore de decisão
 classifier = tree.DecisionTreeClassifier()
 classifier.fit(x_train, y_train)
