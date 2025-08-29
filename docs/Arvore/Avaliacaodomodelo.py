@@ -49,19 +49,16 @@ classifier.fit(x_train, y_train)
 # =============================
 # 5. Avaliação
 # =============================
+# Criar e treinar o modelo de árvore de decisão
+classifier = tree.DecisionTreeClassifier()
+classifier.fit(x_train, y_train)
+
+# Avaliar o modelo
 accuracy = classifier.score(x_test, y_test)
-print(f"\nAccuracy: {accuracy:.2f}\n")
+print(f"Accuracy: {accuracy:.2f}")
+tree.plot_tree(classifier)
 
-# =============================
-# 6. Exibir árvore
-# =============================
-plt.figure(figsize=(18, 10))
-tree.plot_tree(classifier, filled=True, feature_names=X.columns, class_names=["0", "1"])
-plt.show()
-
-# =============================
-# 7. Salvar em SVG para HTML
-# =============================
+# Para imprimir na página HTML
 buffer = StringIO()
 plt.savefig(buffer, format="svg")
 print(buffer.getvalue())
