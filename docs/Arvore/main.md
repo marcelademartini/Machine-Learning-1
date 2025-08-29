@@ -6,9 +6,9 @@ O objetivo é construir um modelo de classificação supervisionada que consiga 
 
 === "Code"
 
-```python
---8<-- "docs/Arvore/Exploracaodedados.py"
-```
+    ```python
+    --8<-- "docs/Arvore/Exploracaodedados.py"
+    ```
 
 !!! example "Explicação dos processos realizados no pré-processamento"
 
@@ -19,44 +19,42 @@ Após essa correção, foi aplicada a normalização com StandardScaler, garanti
 
 === "Code"
 
-```python
---8<-- "docs/Arvore/Preprocessamento.py"
-```
+    ```python
+    --8<-- "docs/Arvore/Preprocessamento.py"
+    ```
 
 === "Resultado"
 
-```python exec="on" html="0"
---8<-- "docs/Arvore/Treinamentodomodelo.py"
-```
+    ```python exec="on" html="0"
+    --8<-- "docs/Arvore/Treinamentodomodelo.py"
+    ```
 
 
 
 === "Code"
 
-```python
---8<-- "docs/Arvore/Divisaodedados.py"
-```
-
+    ```python
+    --8<-- "docs/Arvore/Divisaodedados.py"
+    ```
 
 === "Code"
 
-```python
---8<-- "docs/Arvore/Treinamentodomodelo.py"
-```
-
+    ```python
+    --8<-- "docs/Arvore/Treinamentodomodelo.py"
+    ```
 
 
 !!! example "Breast Cancer Dataset"
 
 === "decision tree"
 
-```python exec="1" html="true"
---8<-- "docs/Arvore/Avaliacaodomodelo.py"
-```
+    ```python exec="1" html="true"
+    --8<-- "docs/Arvore/Avaliacaodomodelo.py"
+    ```
 
 === "code"
 
-```python exec="0"
---8<-- "docs/Arvore/Avaliacaodomodelo.py"
-```
+    ```python exec="0"
+    --8<-- "docs/Arvore/Avaliacaodomodelo.py"
+    ```
 
