@@ -149,4 +149,6 @@ nav:
     - Avaliação do Modelo: ./Arvore/Avaliacaodomodelo.md
   - KNN:
     - KNN: ./KNN/main.md
+  - Teste de Abas: teste_abas.md
+
 
