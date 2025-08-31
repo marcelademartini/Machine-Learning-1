@@ -1,39 +1,80 @@
+# 🌳 Diagnóstico de Diabetes com Árvores de Decisão
+
+---
+
+## 📊 Exploração dos Dados
+
+!!! example "Sobre a base de dados"
+    O dataset contém dados clínicos de pacientes, como número de gestações, glicose, pressão arterial, insulina, idade, entre outros. O objetivo é prever se um paciente tem diabetes com base nesses atributos.
+
+=== "Código"
+
+    ```python
+    --8<-- "docs/Arvore/Exploracaodedados.py"
+    ```
+
+---
+
+## 🧼 Pré-processamento
+
+!!! example "Tratamento e limpeza dos dados"
+    Colunas com valores zero (Glucose, BloodPressure, SkinThickness, Insulin, BMI) foram tratadas com a mediana. O modelo foi normalizado para que os algoritmos funcionem com dados na mesma escala.
+
+=== "Código"
+
+    ```python
+    --8<-- "docs/Arvore/Preprocessamento.py"
+    ```
+
+---
+
+## ✂️ Divisão dos Dados
+
+!!! example "Separação entre treino e teste"
+    Os dados foram divididos em 80% treino e 20% teste, garantindo uma amostra aleatória mas reprodutível com `random_state=42`.
+
+=== "Código"
+
+    ```python
+    --8<-- "docs/Arvore/Divisaodedados.py"
+    ```
+
+---
+
+## 🤖 Treinamento do Modelo
+
+!!! example "Criação da Árvore de Decisão"
+    Um modelo de árvore de decisão foi treinado com os dados pré-processados usando a biblioteca `scikit-learn`.
+
+=== "Código"
+
+    ```python
+    --8<-- "docs/Arvore/Treinamentodomodelo.py"
+    ```
+
+---
+
 ## 📈 Avaliação do Modelo
 
 !!! example "Resultados da Avaliação"
+    Foram avaliados a acurácia, a matriz de confusão, o relatório de classificação e a visualização da árvore.
 
-    Abaixo estão os resultados da avaliação do modelo de árvore de decisão. A acurácia, matriz de confusão e visualização da árvore são fundamentais para entender a performance.
+### 📊 Métricas
 
-=== "Decision Tree"
-
-    ```python
-    from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-    import matplotlib.pyplot as plt
-    from sklearn import tree
-
-    def avaliar_modelo(modelo, x_test, y_test, feature_names):
-        y_pred = modelo.predict(x_test)
-
-        # Acurácia
-        acc = accuracy_score(y_test, y_pred)
-        print(f"Acurácia: {acc:.2f}")
-
-        # Relatório
-        print("\nRelatório de Classificação:")
-        print(classification_report(y_test, y_pred))
-
-        # Matriz de Confusão
-        print("Matriz de Confusão:")
-        print(confusion_matrix(y_test, y_pred))
-
-        # Visualizar Árvore
-        plt.figure(figsize=(18, 8))
-        tree.plot_tree(modelo, feature_names=feature_names, class_names=["Não Diabético", "Diabético"], filled=True)
-        plt.show()
-    ```
-
-=== "Code - Avaliação"
+=== "Código da Avaliação"
 
     ```python
-    # Mesmo conteúdo, caso queira repetir ou adaptar
+    --8<-- "docs/Arvore/Avaliacaodomodelo.py"
     ```
+
+### 🌳 Árvore de Decisão Gerada
+
+> O gráfico abaixo foi salvo via `plt.savefig("docs/assets/arvore.png")` e renderizado aqui como imagem.
+
+![Árvore de Decisão](../assets/arvore.png)
+
+---
+
+## ✅ Conclusão
+
+Este projeto demonstrou como usar Árvores de Decisão para prever a presença de diabetes. O modelo apresentou resultados satisfatórios, e a árvore gerada facilita a interpretação. Melhorias futuras podem incluir ajuste de hiperparâmetros ou uso de Random Forest.

@@ -19,4 +19,4 @@ def avaliar_modelo(modelo, x_test, y_test, feature_names):
     # Visualização da árvore
     plt.figure(figsize=(18, 8))
     tree.plot_tree(modelo, feature_names=feature_names, class_names=["Não Diabético", "Diabético"], filled=True)
-    plt.show()
+    plt.savefig("docs/assets/arvore.png")  
