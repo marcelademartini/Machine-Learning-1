@@ -1,39 +1,21 @@
-import matplotlib.pyplot as plt
 import pandas as pd
-from io import StringIO
-from sklearn import tree
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score
+from sklearn.impute import SimpleImputer
 
+def preprocess_data(df):
+    # Substituir zeros por NaN em colunas onde zero não faz sentido
+    cols_with_zero = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
+    df[cols_with_zero] = df[cols_with_zero].replace(0, pd.NA)
 
-# Carregamento da base
+    # Imputação: preencher valores ausentes com mediana
+    imputer = SimpleImputer(strategy='median')
+    df[cols_with_zero] = imputer.fit_transform(df[cols_with_zero])
 
-df = pd.read_csv("https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv")
+    # Separar features e target
+    x = df.drop("Outcome", axis=1)
+    y = df["Outcome"]
+    
+    return x, y
 
-
-# Pré-processamento
-
-
-# 1. Remover colunas irrelevantes (se tiver, como "id")
-if "id" in df.columns:
-    df = df.drop(columns=["id"])
-
-# 2. Codificação de variáveis categóricas (transforma string em número)
-label_encoder = LabelEncoder()
-for col in df.select_dtypes(include=["object"]).columns:
-    df[col] = label_encoder.fit_transform(df[col].astype(str))
-
-# 3. Features (x) e alvo (y) → assumindo que a última coluna seja o alvo
-x = df.iloc[:, :-1]
-y = df.iloc[:, -1]
-
-# 4. Imputação automática (valores ausentes substituídos pela mediana)
-for col in df.columns:
-    if df[col].isnull().sum() > 0:
-        df[col].fillna(df[col].median(), inplace=True)
-
-
-# Exibir DataFrame
-
-print(df.to_markdown(index=False))
+# Exemplo de uso
+# df = pd.read_csv("https://raw.githubusercontent.com/...")
+# x, y = preprocess_data(df)

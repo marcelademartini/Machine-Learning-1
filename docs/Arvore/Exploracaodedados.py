@@ -1,17 +1,22 @@
-import matplotlib.pyplot as plt
 import pandas as pd
-from io import StringIO
-from sklearn import tree
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-
-# Carregamento da base
-
+# Carregar o dataset
 df = pd.read_csv("https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv")
 
+# Visão geral
+print(df.info())
+print(df.describe())
+print(df["Outcome"].value_counts())
 
-# Exibir DataFrame formatado
+# Histograma
+df.hist(bins=20, figsize=(12, 10))
+plt.tight_layout()
+plt.show()
 
-print(df.to_markdown(index=False))
+# Mapa de calor de correlação
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Correlação entre variáveis")
+plt.show()

@@ -142,3 +142,5 @@ nav:
   - Projeto: ./projeto/main.md
   - Arvore:
     - Arvore: ./Arvore/main.md
+    - KNN:
+    - KNN: ./KNN/main.md
