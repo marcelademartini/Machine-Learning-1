@@ -59,4 +59,4 @@ if __name__ == "__main__":
     plt.savefig(f"{OUT_DIR}/04_importancias.png", dpi=150)
     plt.close()
 
-    print(f"\nArquivos salvos em {OUT_DIR}/. Agora rode Avaliacaodomodelo.py para ver as métricas.")
+    print(f"\nArquivos salvos em {OUT_DIR}/.")

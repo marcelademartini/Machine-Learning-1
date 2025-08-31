@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 
-# Colunas onde zero é inválido fisiologicamente (tratamos como ausente)
+# Colunas onde zero é inválido fisiologicamente (tratado como ausente)
 COLS_ZERO_AS_NA = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
 
 def preprocessar(df: pd.DataFrame):
