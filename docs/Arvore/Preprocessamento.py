@@ -20,8 +20,6 @@ def preprocessar(df: pd.DataFrame):
     X = df.drop(columns=["Outcome"])
     y = df["Outcome"].astype(int)
 
-    # (Opcional, mas exigido na rubrica) Normalização/Padronização
-    # Árvores não precisam, mas vamos padronizar para cumprir o requisito.
     scaler = StandardScaler()
     X_scaled = pd.DataFrame(scaler.fit_transform(X), columns=X.columns)
 
