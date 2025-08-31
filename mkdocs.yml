@@ -142,11 +142,11 @@ nav:
   - Projeto: ./projeto/main.md
   - Arvore:
     - Relatório Geral: ./Arvore/main.md
-    - Exploração dos Dados: ./Arvore/Exploracaodedados.md
-    - Pré-processamento: ./Arvore/Preprocessamento.md
-    - Divisão dos Dados: ./Arvore/Divisaodedados.md
-    - Treinamento do Modelo: ./Arvore/Treinamentodomodelo.md
-    - Avaliação do Modelo: ./Arvore/Avaliacaodomodelo.md
+    - Exploração dos Dados: ./Arvore/Exploracaodedados.py
+    - Pré-processamento: ./Arvore/Preprocessamento.py
+    - Divisão dos Dados: ./Arvore/Divisaodedados.py
+    - Treinamento do Modelo: ./Arvore/Treinamentodomodelo.py
+    - Avaliação do Modelo: ./Arvore/Avaliacaodomodelo.py
   - KNN:
     - KNN: ./KNN/main.md
   - Teste de Abas: teste_abas.md

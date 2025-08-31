@@ -1,21 +1,28 @@
+# Preprocessamento.py
 import pandas as pd
 from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
 
-def preprocess_data(df):
-    # Substituir zeros por NaN em colunas onde zero não faz sentido
-    cols_with_zero = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
-    df[cols_with_zero] = df[cols_with_zero].replace(0, pd.NA)
+# Colunas onde zero é inválido fisiologicamente (tratamos como ausente)
+COLS_ZERO_AS_NA = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
 
-    # Imputação: preencher valores ausentes com mediana
+def preprocessar(df: pd.DataFrame):
+    df = df.copy()
+
+    # Substitui zeros por NaN nas colunas específicas
+    df[COLS_ZERO_AS_NA] = df[COLS_ZERO_AS_NA].replace(0, pd.NA)
+
+    # Imputação por mediana
     imputer = SimpleImputer(strategy='median')
-    df[cols_with_zero] = imputer.fit_transform(df[cols_with_zero])
+    df[COLS_ZERO_AS_NA] = imputer.fit_transform(df[COLS_ZERO_AS_NA])
 
-    # Separar features e target
-    x = df.drop("Outcome", axis=1)
-    y = df["Outcome"]
-    
-    return x, y
+    # Separa X e y
+    X = df.drop(columns=["Outcome"])
+    y = df["Outcome"].astype(int)
 
-# Exemplo de uso
-# df = pd.read_csv("https://raw.githubusercontent.com/...")
-# x, y = preprocess_data(df)
+    # (Opcional, mas exigido na rubrica) Normalização/Padronização
+    # Árvores não precisam, mas vamos padronizar para cumprir o requisito.
+    scaler = StandardScaler()
+    X_scaled = pd.DataFrame(scaler.fit_transform(X), columns=X.columns)
+
+    return X_scaled, y, imputer, scaler
