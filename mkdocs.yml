@@ -141,14 +141,9 @@ nav:
     - Roteiro 4: ./roteiro4/main.md
   - Projeto: ./projeto/main.md
   - Arvore:
-    - Relatório Geral: ./Arvore/main.md
-    - Exploração dos Dados: ./Arvore/Exploracaodedados.py
-    - Pré-processamento: ./Arvore/Preprocessamento.py
-    - Divisão dos Dados: ./Arvore/Divisaodedados.py
-    - Treinamento do Modelo: ./Arvore/Treinamentodomodelo.py
-    - Avaliação do Modelo: ./Arvore/Avaliacaodomodelo.py
+    - Decision-Tree: ./Arvore/main.md
   - KNN:
     - KNN: ./KNN/main.md
-  - Teste de Abas: teste_abas.md
+ 
 
 
