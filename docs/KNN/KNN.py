@@ -8,10 +8,10 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.decomposition import PCA
 
-# ===== 1) Carrega seu CSV =====
+# ===== 1) Carrega o CSV =====
 df = pd.read_csv('https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv')
 
-# Define a coluna alvo (ajuste se quiser fixar)
+# Define a coluna alvo 
 target = 'Outcome' if 'Outcome' in df.columns else df.columns[-1]
 
 # X e y (dummies para categóricas)
@@ -41,19 +41,19 @@ knn = KNeighborsClassifier(n_neighbors=k)
 knn.fit(X_train_s, y_train)
 y_pred = knn.predict(X_test_s)
 
-# ===== 4) Métricas (apenas o essencial) =====
+# ===== 4) Métricas =====
 acc = accuracy_score(y_test, y_pred)
 print(classification_report(y_test, y_pred, digits=3))
 
 
-# ===== Helper: imprimir figura como SVG (sem texto extra) =====
+# ===== Helper: imprimir figura como SVG  =====
 def print_svg_current_fig():
     buf = StringIO()
     plt.savefig(buf, format="svg", transparent=True, bbox_inches="tight")
     print(buf.getvalue())
     plt.close()
 
-# ===== 5) Matriz de confusão (apenas a figura) =====
+# ===== 5) Matriz de confusão  =====
 cm = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(5,4), dpi=120)
 plt.imshow(cm, interpolation='nearest')
@@ -66,7 +66,7 @@ for i in range(cm.shape[0]):
 plt.colorbar()
 print_svg_current_fig()
 
-# ===== 6) Visualização 2D (PCA) da fronteira de decisão (só a figura) =====
+# ===== 6) Visualização 2D (PCA) da fronteira de decisão  =====
 if X_train.shape[1] >= 2:
     pca = PCA(n_components=2, random_state=42)
     X_train_2d = pca.fit_transform(X_train_s)
