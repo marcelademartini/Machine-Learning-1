@@ -10,7 +10,7 @@
 ## 1. Introdução 
 
 
-### Sobre a Diabetes 🩸
+### Sobre a Diabetes 
 
 A **diabetes mellitus** é uma doença metabólica caracterizada pelo aumento anormal dos níveis de **glicose no sangue** (hiperglicemia).  
 Ela ocorre quando o organismo **não produz** ou **não utiliza corretamente** a **insulina**, hormônio responsável por controlar a entrada de glicose nas células para gerar energia.
