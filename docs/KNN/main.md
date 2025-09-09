@@ -41,7 +41,7 @@ Resultados principais deste experimento
 Leitura rápida
 O modelo acerta melhor a classe 0 e perde sensibilidade na classe 1, com mais falsos negativos. Isso acontece quando as classes estão desbalanceadas e quando há sobreposição entre elas.
 
-Como ler a matriz de confusão
+
 • A diagonal mostra os acertos: 36 para a classe 0 e 9 para a classe 1.
 • Fora da diagonal estão os erros:
   – 7 amostras da classe 0 viraram 1 (falsos positivos).
