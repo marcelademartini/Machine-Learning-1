@@ -144,6 +144,8 @@ nav:
     - Decision-Tree: ./Arvore/main.md
   - KNN:
     - KNN: ./KNN/main.md
+  - K-mean:
+    - K-mean: ./K-mean/main.md
  
 
 
