@@ -7,59 +7,53 @@ KNN com o meu CSV: explicação do pipeline e dos resultados
 O que o código faz
 
 
-### 1.
+# 1.
 
 Carrega o CSV Testing.csv do repositório.
 
 
-### 2. 
+# 2. 
 
 Define a variável alvo (Outcome, ou a última coluna caso Outcome não exista).
 
 
-### 3.
+# 3.
 
 Prepara os dados: converte variáveis categóricas em colunas dummies (one hot), preenche ausentes com a mediana e mantém apenas valores numéricos para o modelo.
 
 
-### 4.
+# 4.
 
 Divide em treino e teste com estratificação para preservar a proporção das classes.
 
 
-### 5.
+# 5.
 
 Padroniza as features com StandardScaler para que todas fiquem na mesma escala, o que é essencial para KNN.
 
 
-### 6.
+# 6.
 
 Treina um KNN com k = 3 usando os dados padronizados de treino.
 
 
-### 7. 
+# 7. 
 
 Avalia no conjunto de teste e calcula as métricas.
 
 
-### 8. 
+# 8. 
 
 Mostra duas figuras:
    • Matriz de confusão com contagens.
    • Fronteira de decisão em 2D usando PCA apenas para visualização.
 
 
-### Como os dados se relacionam com o modelo
+## Como os dados se relacionam com o modelo
 
 • O KNN decide a classe de cada amostra olhando para os vizinhos mais próximos no espaço das features.
 • Como as features foram padronizadas, cada coluna contribui de forma equilibrada para a distância.
 • O gráfico de PCA 2D comprime todas as features em duas componentes principais só para visualizar. Para esse gráfico é treinado um KNN separado nas duas componentes, apenas para desenhar as regiões. As métricas reportadas vêm do KNN treinado com todas as features padronizadas.
-
-
-### O que é KNN em duas linhas
-
-• KNN é um método baseado em instâncias: ele não aprende uma fronteira paramétrica, apenas armazena os dados de treino e classifica por voto dos k vizinhos mais próximos.
-• A distância padrão é a euclidiana, mas é possível usar Manhattan e outras. O valor de k controla a suavidade da decisão.
 
 
 ### Resultados principais deste experimento

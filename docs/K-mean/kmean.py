@@ -4,19 +4,19 @@ import matplotlib.pyplot as plt
 from io import StringIO
 from sklearn.cluster import KMeans
 
-# ===== 1) Carrega o CSV =====
-df = pd.read_csv('https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv')
+# Usa o CSV como base (duas primeiras colunas numéricas, para manter o mesmo plot)
+X_num = df.select_dtypes(include=[np.number]).dropna()
+
+if X_num.shape[1] >= 2:
+    X = X_num.iloc[:, :2].to_numpy()
+else:
+    # Se só houver 1 coluna numérica, duplica para conseguir plotar em 2D
+    col = X_num.iloc[:, 0].to_numpy().reshape(-1, 1)
+    X = np.hstack([col, col])
 
 
 plt.figure(figsize=(12, 10))
 
-# Generate sample data
-np.random.seed(42)
-X = np.concatenate([
-    np.random.normal(0, 1, (100, 2)),
-    np.random.normal(5, 1, (100, 2)),
-    np.random.normal(10, 1, (100, 2))
-])
 
 # Run K-Means
 kmeans = KMeans(n_clusters=3, init='k-means++', max_iter=100, random_state=42)
