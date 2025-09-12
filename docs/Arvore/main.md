@@ -19,7 +19,7 @@ Estrutura e tipos: gerei um CSV com tipo de dado e contagem de nulos por coluna:
 
 Estatísticas descritivas: calculei média, desvio padrão, mínimos e quartis de todas as colunas numéricas: descritivas_numericas.csv.
 
-Insight rápido: variáveis como Glucose, BMI e Age costumam ter relação forte com o desfecho de diabetes; isso se reflete nas importâncias do modelo (ver item 5).
+Insight rápido: variáveis como Glucose, BMI e Age costumam ter relação forte com o desfecho de diabetes; isso se reflete nas importâncias do modelo.
 
 
 Este projeto tem como objetivo desenvolver um modelo de **Machine Learning** para **classificar pacientes** entre **diabéticos** e **não diabéticos**, utilizando uma **Árvore de Decisão**.  
@@ -78,19 +78,7 @@ Ajuste básico: sem poda inicial para mostrar a árvore “plena”. Em contexto
 
 Treino: clf.fit(X_train, y_train).
 
-#### 5) Avaliação do Modelo 
-
-Acurácia em teste: 0.9980 (muito alta para essa base).
-
-Matriz de confusão: disponível em imagem: matriz_confusao.png. Ela mostra acertos/erros por classe (verdadeiro vs predito).
-
-Relatório de classificação: precisão, recall e F1 por classe + médias: relatorio_classificacao.txt.
-
-Importância das variáveis: gráfico de barras com a contribuição relativa de cada feature: importancias_features.png. Geralmente Glucose, BMI, Age e DiabetesPedigreeFunction aparecem entre as mais relevantes, o que é coerente clinicamente.
-
-Visual da árvore: exportei a árvore para consulta: arvore_decisao.png. Para uso em relatório, árvores menores (com poda) são mais legíveis.
-
-### 6) Relatório Final 
+### 5) Relatório Final 
 
 Objetivo. Construímos um classificador de árvore de decisão para prever o desfecho binário Outcome (0/1) a partir de variáveis clínicas relacionadas a diabetes.
 Base e exploração. O conjunto Training.csv contém 2.460 observações e 9 colunas. As features são numéricas (gravidez, glicose, pressão arterial, espessura de pele, insulina, IMC, pedigree de diabetes e idade). Estatísticas descritivas indicam ampla variação em Glucose, BMI e Age, o que sugere potencial discriminativo (ver arquivo de descritivas).
