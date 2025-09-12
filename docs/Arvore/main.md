@@ -82,9 +82,9 @@ Treino: clf.fit(X_train, y_train).
 
 Objetivo. Construímos um classificador de árvore de decisão para prever o desfecho binário Outcome (0/1) a partir de variáveis clínicas relacionadas a diabetes.
 Base e exploração. O conjunto Training.csv contém 2.460 observações e 9 colunas. As features são numéricas (gravidez, glicose, pressão arterial, espessura de pele, insulina, IMC, pedigree de diabetes e idade). Estatísticas descritivas indicam ampla variação em Glucose, BMI e Age, o que sugere potencial discriminativo (ver arquivo de descritivas).
-Pré-processamento. Tratamos valores ausentes: mediana para numéricos (e moda para categóricos, se necessário). Como árvores não dependem de escala, não normalizamos.
+Pré-processamento. Tratei valores ausentes: mediana para numéricos (e moda para categóricos, se necessário). Como árvores não dependem de escala, não normalizei.
 Divisão. Separei os dados em treino (80%) e teste (20%) com random_state=42; estratificação foi usada para preservar as proporções de classe.
-Modelagem. Treinamos um DecisionTreeClassifier básico (sem restrições de profundidade) para evidenciar a lógica de particionamento.
+Modelagem. Treinei um DecisionTreeClassifier básico (sem restrições de profundidade) para evidenciar a lógica de particionamento.
 Avaliação. O relatório de classificação apresenta métricas elevadas para ambas as classes (precisão, recall e F1). A análise de importância das variáveis aponta maior contribuição de atributos clínicos esperados, como Glucose, BMI, Age e DiabetesPedigreeFunction.
 Limitações e melhorias. A acurácia elevada pode indicar overfitting ou leakage em bases muito limpas/estruturadas. Recomenda-se: (i) aplicar poda (ajustar max_depth, min_samples_leaf, min_samples_split), (ii) realizar validação cruzada e busca em grade de hiperparâmetros, (iii) comparar com modelos de ensemble (Random Forest, Gradient Boosting) e lineares, (iv) inspecionar outliers/valores impossíveis (ex.: pressões/espessuras zero) e (v) avaliar estabilidade temporal se houver dados ao longo do tempo. Para comunicação, manter gráficos de matriz de confusão, importâncias e uma árvore podada para melhor legibilidade.
 
