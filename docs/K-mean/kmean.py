@@ -5,6 +5,7 @@ from io import StringIO
 from sklearn.cluster import KMeans
 
 # Usa o CSV como base (duas primeiras colunas numéricas, para manter o mesmo plot)
+df = pd.read_csv('https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv')
 X_num = df.select_dtypes(include=[np.number]).dropna()
 
 if X_num.shape[1] >= 2:
