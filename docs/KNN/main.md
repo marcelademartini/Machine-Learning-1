@@ -1,6 +1,14 @@
-``` python exec="on" html="1"
---8<-- "./docs/KNN/KNN.py"
-```
+=== "output"
+   ``` python exec="on" html="1"
+   --8<-- "./docs/KNN/KNN.py"
+   ```
+
+=== "code"
+   ``` python exec="off"
+   --8<-- "./docs/KNN/KNN.py"
+   ```
+
+----------------------------------------------------------------------------------------------------------------------------
 
 KNN com o meu CSV: explicação do pipeline e dos resultados
 
