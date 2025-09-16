@@ -1,13 +1,30 @@
 # TESTE ARVORE DE DECISÃO
 
+=== "output"
+    ``` python exec="on" html="1"
+    --8<-- "./docs/Arvore/Arvore.py"
+    ```
 
-``` python exec="on" html="1"
---8<-- "./docs/Arvore/Arvore.py"
-```
 
-``` python exec="on" html="1"
---8<-- "./docs/Arvore/arv.py"
-```
+=== "code"
+    ``` python exec="off"
+    --8<-- "./docs/Arvore/Arvore.py"
+    ```
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+=== "output"
+    ``` python exec="on" html="1"
+    --8<-- "./docs/Arvore/arv.py"
+    ```
+
+=== "code"
+    ``` python exec="off" 
+    --8<-- "./docs/Arvore/arv.py"
+    ```
+
 
 # Classificação de Diabetes usando Árvore de Decisão
 
