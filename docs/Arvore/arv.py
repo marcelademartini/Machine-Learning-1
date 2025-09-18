@@ -8,7 +8,6 @@ from sklearn.metrics import accuracy_score
 
 # 1) Carregar e explorar dados
 df = pd.read_csv('https://raw.githubusercontent.com/marcelademartini/Machine-Learning-1/refs/heads/main/Testing.csv')
-# Para usar a base anexada (Training.csv), troque pela linha abaixo:
 # df = pd.read_csv('/mnt/data/Training.csv')
 
 # (Exploração) df.describe(), df.dtypes, df.isna().sum() e df.head() ajudam a entender a base.
@@ -17,7 +16,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/marcelademartini/Machine-Lea
 # Se houver colunas categóricas:
 # le = LabelEncoder()
 # df['sua_coluna_categ'] = le.fit_transform(df['sua_coluna_categ'].astype(str))
-# Tratamento de nulos: df = df.fillna(df.median(numeric_only=True))  # Exemplo
+# Tratamento de nulos: df = df.fillna(df.median(numeric_only=True))  
 
 # 3) Divisão em treino/teste
 x = df.drop(columns=['Outcome'])   # Features

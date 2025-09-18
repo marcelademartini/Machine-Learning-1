@@ -10,119 +10,124 @@
 
 ----------------------------------------------------------------------------------------------------------------------------
 
-KNN com o meu CSV: explicação do pipeline e dos resultados
+## 1) Exploração dos Dados
 
-O que o código faz
+* Leitura do conjunto de dados: o CSV é carregado de uma URL do GitHub para o DataFrame df:
 
+* df = pd.read_csv('https://raw.githubusercontent.com/.../Testing.csv').
 
-# 1.
+* Natureza do problema (supervisionado): o código define automaticamente a coluna-alvo para classificação:
 
-Carrega o CSV Testing.csv do repositório.
+* target = 'Outcome' se essa coluna existir; caso contrário, usa a última coluna do CSV (df.columns[-1]).
 
+* Separação inicial de variáveis:
 
-# 2. 
+* **X_raw = df.drop(columns=[target]) (preditoras).**
 
-Define a variável alvo (Outcome, ou a última coluna caso Outcome não exista).
+* **y = df[target] (alvo).**
 
+* Tipos de dados:
 
-# 3.
+* Preditoras categóricas são transformadas em dummies com pd.get_dummies(..., drop_first=True), o que cria colunas binárias para categorias.
 
-Prepara os dados: converte variáveis categóricas em colunas dummies (one hot), preenche ausentes com a mediana e mantém apenas valores numéricos para o modelo.
+* Se o alvo não for numérico, ele é codificado em inteiros com pd.factorize.
 
+* Visualizações/estatísticas descritivas: nesta etapa não há gráficos exploratórios nem estatísticas como média, desvio padrão, etc. A exploração aqui se resume à leitura do CSV, identificação da coluna-alvo e preparação de tipos (numérico/categórico).
 
-# 4.
+## 2) Pré-processamento
 
-Divide em treino e teste com estratificação para preservar a proporção das classes.
+* **Tratamento de ausentes (NaN):**
 
+**X = X.fillna(X.median(numeric_only=True)):** preenche valores faltantes nas colunas numéricas com a mediana de cada coluna.
 
-# 5.
+* **Codificação de categóricas:**
 
-Padroniza as features com StandardScaler para que todas fiquem na mesma escala, o que é essencial para KNN.
+**pd.get_dummies(X_raw, drop_first=True):** converte todas as colunas categóricas de X_raw para variáveis indicadoras, descartando a primeira categoria (evita redundância).
 
+* **Padronização (normalização z-score):**
 
-# 6.
+* StandardScaler() é ajustado em X_train e aplicado em X_train/X_test, produzindo X_train_s e X_test_s. Isso centraliza (média 0) e escala (desvio 1) as features, o que é importante para KNN.
 
-Treina um KNN com k = 3 usando os dados padronizados de treino.
+## 3) Divisão dos Dados
 
+* Hold-out 80/20:
 
-# 7. 
+* train_test_split(..., test_size=0.2, random_state=42, stratify=...).
 
-Avalia no conjunto de teste e calcula as métricas.
+* **Estratificação:**
 
+* Se houver mais de uma classe no alvo, o split é estratificado para manter as proporções de classes em treino e teste.
 
-# 8. 
+* **Reprodutibilidade:**
 
-Mostra duas figuras:
-   • Matriz de confusão com contagens.
-   • Fronteira de decisão em 2D usando PCA apenas para visualização.
+* random_state=42 garante que a mesma divisão seja reproduzível.
 
+## 4) Treinamento do Modelo (KNN)
 
-## Como os dados se relacionam com o modelo
+* Algoritmo: KNeighborsClassifier com n_neighbors=k, onde k = 3.
 
-• O KNN decide a classe de cada amostra olhando para os vizinhos mais próximos no espaço das features.
-• Como as features foram padronizadas, cada coluna contribui de forma equilibrada para a distância.
-• O gráfico de PCA 2D comprime todas as features em duas componentes principais só para visualizar. Para esse gráfico é treinado um KNN separado nas duas componentes, apenas para desenhar as regiões. As métricas reportadas vêm do KNN treinado com todas as features padronizadas.
+* **Treinamento:**
 
+* knn.fit(X_train_s, y_train) usa as features padronizadas de treino.
 
-### Resultados principais deste experimento
+* **Predição:**
 
-• Conjunto de teste: 62 amostras
-• Matriz de confusão (real × predito):
+* y_pred = knn.predict(X_test_s) gera as classes previstas para o conjunto de teste.
 
-  – Verdadeiro negativo: 36
+## 5) Avaliação do Modelo
 
-  – Falso positivo: 7
+* **Métricas impressas:**
 
-  – Falso negativo: 10
+* accuracy_score(y_test, y_pred) (acurácia) é calculada e armazenada em acc.
 
-  – Verdadeiro positivo: 9
+* classification_report(y_test, y_pred, digits=3) é impresso no console com precision, recall, f1-score e support por classe, além das médias.
 
+* **Matriz de confusão (figura):**
 
-• Métricas da classe positiva:
+* confusion_matrix(y_test, y_pred) gera a matriz cm.
 
-  – Accuracy geral ≈ 0,726
+* Em seguida, é plotada com plt.imshow(cm, ...), adiciona-se plt.colorbar() e os números das células são sobrepostos com plt.text(...).
 
-  – Precisão ≈ 0,562
+* A figura é exportada como SVG por print_svg_current_fig(), que salva no buffer (StringIO) e imprime o SVG no stdout (útil para ambientes que capturam a saída).
 
-  – Recall ≈ 0,474
+Visualização da fronteira de decisão em 2D (PCA):
 
-  – F1 score ≈ 0,514
+* Se X_train tiver ≥ 2 features, aplica-se PCA para reduzir X_train_s/X_test_s a 2 componentes: X_train_2d, X_test_2d.
 
-### Leitura rápida
+* Treina-se um KNN separado para visualização (knn_viz) neste espaço 2D.
 
-O modelo acerta melhor a classe 0 e perde sensibilidade na classe 1, com mais falsos negativos. Isso acontece quando as classes estão desbalanceadas e quando há sobreposição entre elas.
+* Cria-se uma malha (np.meshgrid) e plota-se plt.contourf(...) com as regiões de decisão do KNN em 2D.
 
+* Os pontos de treino (círculos) e teste (xis) são sobrepostos, coloridos pelas classes verdadeiras.
 
-• A diagonal mostra os acertos: 36 para a classe 0 e 9 para a classe 1.
-• Fora da diagonal estão os erros:
-  – 7 amostras da classe 0 viraram 1 (falsos positivos).
-  – 10 amostras da classe 1 viraram 0 (falsos negativos).
-• Se o foco for detectar a classe 1, importa reduzir falsos negativos e aumentar o recall da classe 1.
+* Esta figura também é exportada como SVG via print_svg_current_fig().
 
-Melhora do código e do modelo
-1) Escolha de k e de distância
-   – Fazer busca em grade com validação cruzada para k em {3, 5, 7, 9, 11} e distância euclidiana ou Manhattan.
-   – Usar weights='distance' pode ajudar quando a vizinhança é heterogênea.
+## 6) Relatório Final (documentação do que o código produz)
 
-2) Ajuste de decisão
-   – Usar predict_proba e alterar o limiar da classe positiva de 0,50 para um valor que aumente o recall quando esse for o objetivo.
+* **Processo documentado pelo código:**
 
-3) Balanceamento
-   – Testar SMOTE ou subamostragem para balancear as classes no treino.
-   – Manter divisão estratificada.
+* Entrada: leitura do CSV remoto e definição automática do alvo.
 
-4) Limpeza de dados
-   – Tratar outliers e padronizar sempre após a divisão em treino e teste, como já foi feito.
-   – Verificar colunas quase constantes ou muito correlacionadas que pouco agregam informação.
+* Pré-processamento: dummies para categóricas, fatorização do alvo se necessário, imputação por mediana para NaN e padronização via StandardScaler.
 
-5) Métricas adicionais
-   – Incluir curva ROC e AUC e também curva Precisão Recall quando a classe positiva for rara.
-   – Mostrar matriz de confusão em percentuais além de contagens.
+* Divisão: treino/teste 80/20 com estratificação quando aplicável.
 
-6) Visualização
-   – Lembrar que o gráfico com PCA é apenas uma projeção para 2D; ele ajuda a ver a sobreposição, mas não reflete toda a informação do modelo final.
+* Modelo: KNN com k=3, treinado em dados padronizados.
 
+* **Saídas:**
 
-### Resumo em uma frase
+* Texto: relatório de classificação (precision, recall, f1, support) e a acurácia (em acc).
 
-Com os dados padronizados do CSV, o KNN com k igual a 3 alcançou cerca de 0,73 de accuracy, acerta bem a classe 0, mas precisa de ajustes para melhorar o recall da classe 1; tuning de k e distância, uso de pesos por distância, ajuste de limiar e balanceamento no treino tendem a melhorar esse comportamento.
+* Figuras (SVG, impressas no stdout):
+
+* Matriz de confusão do conjunto de teste.
+
+* Fronteira de decisão em 2D após redução por PCA, com pontos de treino e teste.
+
+* **Resultados obtidos:**
+
+* O console exibirá o classification_report com métricas por classe e médias; a acurácia está disponível na variável acc.
+
+* Duas figuras SVG são geradas na saída: (i) Matriz de confusão e (ii) Fronteira de decisão (PCA 2D).
+
+*Possíveis melhorias (nota descritiva): não fazem parte do código atual; portanto, o relatório final se limita às etapas e produtos acima executados pelo script.

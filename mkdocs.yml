@@ -146,6 +146,8 @@ nav:
     - KNN: ./KNN/main.md
   - K-mean:
     - K-mean: ./K-mean/main.md
+  - Metrics:
+    - Metrics: ./Metrics/main.md
  
 
 

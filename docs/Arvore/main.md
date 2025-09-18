@@ -26,82 +26,144 @@
     ```
 
 
-# Classificação de Diabetes usando Árvore de Decisão
+# Código 1
 
-## 1) Exploração dos Dados
+## 1) Exploração dos dados
 
-Natureza dos dados: a base tem 2.460 linhas e 9 colunas, com a coluna alvo Outcome (classificação binária: 0/1). As features incluem: Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age.
+* O código carrega o arquivo CSV hospedado no GitHub em df usando pd.read_csv(...).
 
-Estrutura e tipos: gerei um CSV com tipo de dado e contagem de nulos por coluna: meta_colunas.csv.
+* A natureza do conjunto é tratada de forma implícita: parte-se do princípio de que existe uma coluna alvo chamada Outcome e que as demais colunas são atributos preditores.
 
-Estatísticas descritivas: calculei média, desvio padrão, mínimos e quartis de todas as colunas numéricas: descritivas_numericas.csv.
+* Nesta versão não há estatísticas descritivas (média, desvio, contagem) nem gráficos exploratórios do próprio dataset. A única visualização gerada é a árvore treinada.
 
-Insight rápido: variáveis como Glucose, BMI e Age costumam ter relação forte com o desfecho de diabetes; isso se reflete nas importâncias do modelo.
+## 2) Pré processamento
 
+* Não há etapas de limpeza, tratamento de valores ausentes ou normalização. O script utiliza diretamente os dados de df.
 
-Este projeto tem como objetivo desenvolver um modelo de **Machine Learning** para **classificar pacientes** entre **diabéticos** e **não diabéticos**, utilizando uma **Árvore de Decisão**.  
-O modelo foi construído com base no **Pima Indians Diabetes Dataset**.
+* O código assume que as colunas de x são compatíveis com o modelo (por exemplo, numéricas ou já codificadas). LabelEncoder é importado mas não é utilizado nesta execução.
 
-O fluxo do projeto é dividido em etapas:
-- Exploração e análise dos dados;
-- Pré-processamento e limpeza;
-- Divisão do conjunto de dados;
-- Treinamento do modelo;
-- Avaliação de desempenho;
-- Discussão de melhorias futuras.
+## 3) Divisão dos dados
 
-Valores ausentes: para colunas numéricas, preenchi eventuais ausências com a mediana; para categóricas (não há na base final), seria a moda.
+* As variáveis são separadas em preditores e alvo:
 
-Codificação: como todas as features já são numéricas e a variável alvo é binária, não foi necessária one-hot. Mantive um LabelEncoder genérico caso a base traga strings.
+* x = df.drop(columns=['Outcome']) contém todas as colunas exceto a coluna alvo.
 
----
+* y = df['Outcome'] contém a classe discreta a ser prevista.
 
-## 2. Exploração dos Dados 
+* A divisão treino e teste é feita por train_test_split(x, y, test_size=0.2, random_state=42), reservando 20% dos dados para teste e fixando a semente aleatória em 42 para reprodutibilidade.
 
-A base de dados contém **308 registros** e **9 atributos**, sendo um deles a variável alvo (**Outcome**).
+## 4) Treinamento do modelo
 
-| Coluna                     | Descrição                                   | Tipo   |
-|---------------------------|-------------------------------------------|--------|
-| **Pregnancies**           | Número de vezes que a paciente engravidou | int    |
-| **Glucose**               | Concentração de glicose no plasma         | int    |
-| **BloodPressure**         | Pressão arterial diastólica (mm Hg)       | int    |
-| **SkinThickness**         | Espessura da pele no tríceps (mm)         | int    |
-| **Insulin**               | Nível de insulina sérica (µU/ml)          | int    |
-| **BMI**                   | Índice de Massa Corporal                 | float  |
-| **DiabetesPedigreeFunction** | Probabilidade genética de diabetes     | float  |
-| **Age**                   | Idade da paciente (anos)                 | int    |
-| **Outcome**               | Diagnóstico (0 = não diabético, 1 = diabético) | int |
+* Cria se um classificador de árvore de decisão com tree.DecisionTreeClassifier() usando os padrões da biblioteca (por exemplo, critério Gini e profundidade livre, a menos que o dataset limite).
 
-**Principais insights iniciais:**
-- Média da glicose: **~120 mg/dL**
-- IMC médio: **~31,8**
-- Idade média: **~33 anos**
-- Proporção de pacientes diabéticos: **~30%**
+* O ajuste é realizado com classifier.fit(x_train, y_train), aprendendo regras de decisão a partir das amostras de treinamento.
 
----
+## 5) Avaliação do modelo
 
-### 3) Divisão dos Dados
+* O desempenho é calculado com classifier.score(x_test, y_test), que retorna a acurácia média no conjunto de teste. O valor é impresso com duas casas decimais por print(f"Accuracy: {accuracy:.2f}").
 
-## Split treino/teste: usei train_test_split com test_size=0.2 e random_state=42.
+* A visualização da estrutura aprendida é feita por tree.plot_tree(classifier), desenhando os nós e divisões na figura previamente aberta com plt.figure(figsize=(12, 10)).
 
-Estratificação: quando possível, estratifiquei por y para manter a proporção de classes no conjunto de teste, garantindo avaliação mais justa.
+## 6) Relatório final e saída gráfica
+
+* Para disponibilizar a figura em contexto HTML, o código cria um StringIO, salva a figura atual em SVG com plt.savefig(buffer, format="svg") e imprime o conteúdo do buffer com print(buffer.getvalue()).
+
+* O resultado produzido pelo script é:
+
+* a acurácia calculada no conjunto de teste, e
+
+* a árvore de decisão renderizada como SVG, impressa diretamente na saída padrão, pronta para ser consumida por uma página que leia essa saída e exiba o SVG.
+
+* accuracy_score é importado mas não é utilizado, pois a acurácia é obtida via classifier.score(...).
+
+# Código 2
+
+## 1) Exploração dos dados
+
+* O script carrega a base diretamente da URL para o DataFrame df:
+
+* df = pd.read_csv('https://raw.githubusercontent.com/.../Testing.csv')
 
 
-### 4) Treinamento do Modelo
+* Há comentários indicando as funções de inspeção inicial: df.head() para amostra de linhas, df.dtypes para tipos por coluna, df.describe() para estatísticas descritivas e df.isna().sum() para contagem de ausentes.
 
-Algoritmo: DecisionTreeClassifier(random_state=42).
+* Nesta etapa o código não imprime nada por padrão, apenas aponta quais comandos usar para entender a natureza das variáveis. A base contém a coluna alvo Outcome, usada mais adiante.
 
-Ajuste básico: sem poda inicial para mostrar a árvore “plena”. Em contexto de produção, recomenda-se ajustar hiperparâmetros como max_depth, min_samples_split e min_samples_leaf para reduzir overfitting.
+## 2) Preprocessamento
 
-Treino: clf.fit(X_train, y_train).
+* O bloco de preprocessamento está comentado. Ele mostra como:
 
-### 5) Relatório Final 
+* Codificar categorias com LabelEncoder caso exista alguma coluna categórica.
 
-Objetivo. Construímos um classificador de árvore de decisão para prever o desfecho binário Outcome (0/1) a partir de variáveis clínicas relacionadas a diabetes.
-Base e exploração. O conjunto Training.csv contém 2.460 observações e 9 colunas. As features são numéricas (gravidez, glicose, pressão arterial, espessura de pele, insulina, IMC, pedigree de diabetes e idade). Estatísticas descritivas indicam ampla variação em Glucose, BMI e Age, o que sugere potencial discriminativo (ver arquivo de descritivas).
-Pré-processamento. Tratei valores ausentes: mediana para numéricos (e moda para categóricos, se necessário). Como árvores não dependem de escala, não normalizei.
-Divisão. Separei os dados em treino (80%) e teste (20%) com random_state=42; estratificação foi usada para preservar as proporções de classe.
-Modelagem. Treinei um DecisionTreeClassifier básico (sem restrições de profundidade) para evidenciar a lógica de particionamento.
-Avaliação. O relatório de classificação apresenta métricas elevadas para ambas as classes (precisão, recall e F1). A análise de importância das variáveis aponta maior contribuição de atributos clínicos esperados, como Glucose, BMI, Age e DiabetesPedigreeFunction.
-Limitações e melhorias. A acurácia elevada pode indicar overfitting ou leakage em bases muito limpas/estruturadas. Recomenda-se: (i) aplicar poda (ajustar max_depth, min_samples_leaf, min_samples_split), (ii) realizar validação cruzada e busca em grade de hiperparâmetros, (iii) comparar com modelos de ensemble (Random Forest, Gradient Boosting) e lineares, (iv) inspecionar outliers/valores impossíveis (ex.: pressões/espessuras zero) e (v) avaliar estabilidade temporal se houver dados ao longo do tempo. Para comunicação, manter gráficos de matriz de confusão, importâncias e uma árvore podada para melhor legibilidade.
+* Tratar ausentes usando a mediana numérica: df = df.fillna(df.median(numeric_only=True)).
 
+* Como está escrito, o fluxo segue sem executar transformações. Ou seja, o modelo utilizará os dados como estão em df.
+
+## 3) Divisão dos dados
+
+* O código separa features e alvo:
+
+* x = df.drop(columns=['Outcome'])
+* y = df['Outcome']
+
+
+* Em seguida, faz a partição treino e teste com proporção 80/20 e semente fixa para reprodutibilidade:
+
+* x_train, x_test, y_train, y_test = train_test_split(
+    x, y, test_size=0.2, random_state=42
+)
+
+
+* Isso garante um conjunto de teste mantido para avaliação fora do treino.
+
+## 4) Treinamento do modelo (Decision Tree)
+
+* O classificador é criado com random_state=42 e hiperparâmetros padrão:
+
+* classifier = tree.DecisionTreeClassifier(random_state=42)
+
+
+* O ajuste do modelo ocorre com:
+
+* classifier.fit(x_train, y_train)
+
+## 5) Avaliação do modelo e visualização
+
+* A acurácia é calculada usando classifier.score(x_test, y_test) e exibida com duas casas decimais:
+
+* accuracy = classifier.score(x_test, y_test)
+print(f"Accuracy: {accuracy:.2f}")
+
+
+* Observação descritiva: classifier.score em um classificador equivale à acurácia. O módulo também importou accuracy_score, mas a métrica é obtida via .score() no seu código.
+
+* A árvore treinada é plotada:
+---------------------------------------------------------------------------------------------------------
+plt.figure(figsize=(12, 10))
+tree.plot_tree(classifier)
+---------------------------------------------------------------------------------------------------------
+
+* O gráfico apresenta a estrutura de decisão aprendida, com informações padrão nos nós como gini, amostras, distribuição por classe e classe final.
+
+* Para uso em páginas HTML, o gráfico é exportado como SVG para um buffer de texto e o conteúdo SVG é impresso:
+---------------------------------------------------------------------------------------------------------
+buffer = StringIO()
+plt.savefig(buffer, format="svg")
+print(buffer.getvalue())
+-------------------------------------------------------------------------------------------------------------
+
+* Isso produz o markup SVG completo, próprio para incorporação em HTML.
+
+## 6) Relatório final
+
+* Com base no que o script produz, o relatório pode documentar:
+
+* Dados e contexto: origem do Testing.csv e breve descrição das variáveis observadas na exploração.
+
+* Metodologia: uso de Decision Tree para classificação com divisão 80/20.
+
+* Resultados: valor de acurácia impresso pelo código e a visualização da árvore gerada em SVG.
+
+* Discussão: leitura da estrutura da árvore a partir do diagrama, destacando caminhos de decisão e nós mais relevantes conforme o gráfico.
+
+* O material gerado atende aos itens solicitados no template do projeto integrador: dados, método, treinamento, métrica de avaliação e figura da árvore para ilustração dos resultados.
