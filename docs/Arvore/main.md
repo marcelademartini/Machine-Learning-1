@@ -34,13 +34,9 @@
 
 * A natureza do conjunto é tratada de forma implícita: parte-se do princípio de que existe uma coluna alvo chamada Outcome e que as demais colunas são atributos preditores.
 
-* Nesta versão não há estatísticas descritivas (média, desvio, contagem) nem gráficos exploratórios do próprio dataset. A única visualização gerada é a árvore treinada.
-
 ## 2) Pré processamento
 
-* Não há etapas de limpeza, tratamento de valores ausentes ou normalização. O script utiliza diretamente os dados de df.
-
-* O código assume que as colunas de x são compatíveis com o modelo (por exemplo, numéricas ou já codificadas). LabelEncoder é importado mas não é utilizado nesta execução.
+* O código assume que as colunas de x são compatíveis com o modelo (por exemplo, numéricas ou já codificadas). 
 
 ## 3) Divisão dos dados
 

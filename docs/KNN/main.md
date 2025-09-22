@@ -32,8 +32,6 @@
 
 * Se o alvo não for numérico, ele é codificado em inteiros com pd.factorize.
 
-* Visualizações/estatísticas descritivas: nesta etapa não há gráficos exploratórios nem estatísticas como média, desvio padrão, etc. A exploração aqui se resume à leitura do CSV, identificação da coluna-alvo e preparação de tipos (numérico/categórico).
-
 ## 2) Pré-processamento
 
 * **Tratamento de ausentes (NaN):**

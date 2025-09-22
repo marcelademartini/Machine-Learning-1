@@ -46,4 +46,4 @@
   5. geração de **gráfico de dispersão** com rótulos e centróides;
   6. salvamento em **SVG** para *buffer* e **impressão** do conteúdo SVG no *stdout*.
 * **Resultados gerados**: um **SVG** contendo o **gráfico de clusters** com três grupos e seus **centróides**.
-* **Aspectos não contemplados no script** (apenas descrição): **estatísticas descritivas**, **normalização**, **divisão treino-teste**, **implementação de KNN** e **métricas de desempenho supervisionadas** **não** estão presentes no código atual.
+* **Aspectos não contemplados no script** (apenas descrição): **estatísticas descritivas**, **normalização**, **divisão treino-teste**, **implementação de KNN** e **métricas de desempenho supervisionadas** **não** estão presentes no código.
