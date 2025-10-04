@@ -6,7 +6,7 @@ from itertools import permutations
 from sklearn.cluster import KMeans
 from sklearn.metrics import confusion_matrix
 
-# ===== Helper: imprimir figura como SVG (mesmo do seu código) =====
+# ===== Helper: imprimir figura como SVG =====
 def print_svg_current_fig():
     buf = StringIO()
     plt.savefig(buf, format="svg", transparent=True, bbox_inches="tight")
@@ -22,7 +22,7 @@ if 'Outcome' not in df.columns:
 
 y_true = df['Outcome'].to_numpy()
 
-# ===== 2) Seleciona features numéricas (como no seu K-Means) =====
+# ===== 2) Seleciona features numéricas =====
 X_num = df.select_dtypes(include=[np.number]).dropna()
 
 if X_num.shape[1] >= 2:
@@ -51,13 +51,13 @@ for i in range(cm_raw.shape[0]):
 plt.colorbar()
 print_svg_current_fig()
 
-# ===== 5) (OPCIONAL) REMAPEAMENTO DOS CLUSTERS PARA CLASSES =====
+# ===== 5)REMAPEAMENTO DOS CLUSTERS PARA CLASSES =====
 # Tenta encontrar a melhor permutação de mapeamento cluster->classe que maximize acertos
 classes = np.unique(y_true)
 n_classes = len(classes)
 n_clusters = k
 
-# Se número de clusters >= número de classes, tentamos mapear as 'n_classes' primeiras posições
+# Se número de clusters >= número de classes
 best_perm = None
 best_hits = -1
 
@@ -89,7 +89,7 @@ for i in range(cm_mapped.shape[0]):
 plt.colorbar()
 print_svg_current_fig()
 
-# ===== 6) (Opcional) Plot do clustering em 2D, como no seu exemplo =====
+# ===== 6) Plot do clustering em 2D =====
 plt.figure(figsize=(6,5), dpi=120)
 plt.scatter(X[:, 0], X[:, 1], c=labels, s=40, alpha=0.8, label='pontos', cmap='viridis')
 plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1],
