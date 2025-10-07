@@ -148,6 +148,8 @@ nav:
     - K-mean: ./K-mean/main.md
   - Metrics:
     - Metrics: ./Metrics/main.md
- 
+  - randomforest:
+    - randomforest: ./randomforest/main.md
+  
 
 
