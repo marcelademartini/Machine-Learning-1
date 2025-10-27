@@ -150,6 +150,12 @@ nav:
     - Metrics: ./Metrics/main.md
   - randomforest:
     - randomforest: ./randomforest/main.md
+  - pagerank:
+    - pagerank: ./pagerank/main.md  
+  - svm:
+    - svm: ./svm/main.md    
+  - pyspark:
+    - pyspark: ./pyspark/main.md   
   
 
 
