@@ -11,7 +11,7 @@ try:
 except Exception:
     df = pd.read_csv(LOCAL)
 
-# ===== 2) Seu código (inalterado na lógica) =====
+# ===== 2) 
 def gini_impurity(y):
     if not y:
         return 0
