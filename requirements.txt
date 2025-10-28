@@ -21,3 +21,6 @@ seaborn
 tabulate
 yfinance
 graphviz
+requests.adapters
+urllib3.util.retry
+collections 
