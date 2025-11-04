@@ -1,5 +1,5 @@
 === "output"
-   ``` python exec="on" html="1"
+   ``` python exec="off" html="1"
    --8<-- "./docs/svm/svm.py"
    ```
 

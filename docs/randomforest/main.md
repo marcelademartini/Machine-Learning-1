@@ -100,4 +100,3 @@ O Random Forest implementado atingiu **77,4%** de acurácia, com bom desempenho 
 - Avaliar **ROC/AUC**, precisão-recall e *threshold tuning* conforme o custo de erros.
 - Testar padronização seletiva e engenharia de atributos (ex.: interações clínicas).
 - Comparar com modelos baseline (Logística, KNN, XGBoost) e com *grid search*.
- kkkkkkkkk
