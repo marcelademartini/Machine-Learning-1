@@ -39,13 +39,13 @@ df = fetch_csv_with_retries(RAW_URL, local_candidates=LOCAL_CANDIDATES)
 # ===========================
 # 1. Selecionar variáveis (features) e alvo (target)
 # ===========================
-# manter apenas as colunas numéricas e exigir pelo menos duas colunas para a demonstração em 2D
+
 numeric = df.select_dtypes(include=[np.number])
 if numeric.shape[1] < 2:
     raise RuntimeError("Need at least two numeric features for this SVM demo. Put Testing.csv with numeric columns in the repo.")
 
-X = numeric.iloc[:, :2].values  # primeiras duas variáveis numéricas
-y_raw = df.iloc[:, -1].values  # última coluna do dataframe original usada como rótulo
+X = numeric.iloc[:, :2].values  
+y_raw = df.iloc[:, -1].values  
 
 # Converter rótulos para binário {-1, +1}
 unique_values = np.unique(y_raw)
@@ -73,7 +73,7 @@ K = kernel_matrix(X, rbf_kernel, sigma)
 # ===========================
 # 3. Otimização dual (com restrições de caixa 0 <= alpha <= C)
 # ===========================
-C = 1.0  # parâmetro soft-margin; altere se necessário
+C = 1.0  # parâmetro soft-margin
 P = np.outer(y, y) * K
 
 def objective(alpha):
